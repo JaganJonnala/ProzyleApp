@@ -1,0 +1,78 @@
+
+ActionBar{
+    background-color: white;
+    color: black;
+}
+.iphone{
+         background-image: url("~/images/iPhone5.png");
+     background-repeat: no-repeat;
+ background-size: 120% 100%;
+ padding: 20;
+}
+.incrWidth{
+    width: 100%;
+    margin-bottom: 250;
+}
+.button {
+  background-color: rgb( 234, 203, 32 );
+  border-radius: 75;
+  color: white;
+width: 55%;
+margin-top: 30;
+}
+
+.inputTextError {
+    /*border-color: lightcoral;*/
+    border-width: 2;
+
+}
+/*.loginfirstBg{
+    background-image: url("~/images/loginfourthbg.png");
+     background-repeat: no-repeat;
+ background-size: 120% 100%;
+ padding: 20;
+}
+.mainContent{
+    width: 100%;
+   margin-bottom: 60;
+}
+.subContent{
+    background-color: white;
+    height: 500;
+    width: 80%;
+    border-top: #fff;
+}
+.logoFirst{
+     width: 150;
+    height: 150;
+    margin-left: -20;
+}
+.validationEmail{
+   margin-left:10 ;
+    background-color: white;
+    color:red;
+}
+.emailNew{
+    width: 70%;
+    background-color: #f7fafb;
+padding: 15;
+margin-bottom: 20;
+}
+.signINbtn{
+    background-color: #fc2e73;
+    color: white;
+    border-radius: 40;
+    margin-bottom: 30;
+    height: 50;
+margin-top: 60;
+   width: 50%;
+    font-size: 15;
+}
+
+.inputText {
+    width: 75%;
+}
+.inputTextError {
+    border-color: lightcoral;
+    border-width: 2;
+}*/

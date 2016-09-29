@@ -1,0 +1,38 @@
+<ScrollView>
+    <stackLayout class="">
+        <ActionBar title="TaskDetails">
+            <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+            <ActionItem [text]="countString"></ActionItem>
+        </ActionBar>
+        <StackLayout class="increasbg">
+        </StackLayout>
+        <StackLayout>
+            <StackLayout class="headingRow" orientation="horizontal">
+                <Label [text]="item?.dataEntryType ==='Image' ? 'Property Images' : 'Property Inspection'" textWrap="true" class="basic"></Label>
+                <Label text=" : "></Label>
+                <Label [text]="item?.checkListItemName" textWrap="true" class="landLabels"></Label>
+            </StackLayout>
+            <StackLayout class="buttonsRow" orientation="horizontal" [visibility]="item?.dataEntryType ==='Image'? 'visible' : 'collapsed'">
+                <Image [src]="item?.propertyImageUrl" [visibility]="item?.propertyImageUrl ? 'visible' : 'collapsed'" (longPress)="onLongPress($event)"
+                    (tap)="onTap($event)" id="imageId" horizontalAlignment="center" class="imageTaken" [class.secondTap]="secondTapStatus"
+                    [class.firstTap]="imageTapStatus"></Image>
+                <StackLayout orientation="horizontal" [visibility]="item?.propertyImageUrl ? 'collapsed' : 'visible'">
+                    <Button text="UpLoad" class="upLoad"></Button>
+                    <Button text="Take Picture" class="takePicture" (tap)="takePicture()"></Button>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout [visibility]="item?.dataEntryType ==='Dropdown' || item?.dataEntryType ==='CheckBox' ? 'visible' : 'collapsed'">
+                <Label text="Drop Down Selection Section Here"></Label>
+            </StackLayout>
+            <StackLayout class="textFieldsRow">
+                <TextView hint="Remarks" ([ngModel])="item?.remarks" editable="true" class="remarksTest"></TextView>
+                <TextView hint="Review" ([ngModel])="item?.reviewComments" editable="true" class="remarksTest"></TextView>
+            </StackLayout>
+        </StackLayout>
+
+        <StackLayout class="footer" orientation="horizontal">
+            <Label text="&#xf060;" (tap)="back()" textWrap="true" class="example leftIcon"></Label>
+            <Label text="&#xf061;" (tap)="forward()" textWrap="true" class="example rightIcon"></Label>
+        </StackLayout>
+    </stackLayout>
+</ScrollView>

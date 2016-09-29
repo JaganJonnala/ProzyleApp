@@ -1,0 +1,119 @@
+.takepictureBg{
+      background-image: url("~/images/takepicturebg.png");
+     background-repeat: no-repeat;
+background-size: 120% 100%;
+padding: 20;
+
+}
+.increasbg{
+    width: 100%;
+    margin-bottom: 20;
+}
+.headingRow{
+    text-align: center;
+    margin-top: 25;
+    margin-bottom: 30;
+    /*margin-left: 110;*/
+}
+.basic{
+    color: teal;
+    font-size: 25;
+}
+.landLabels{
+    /*color: #988561;*/
+  
+    font-size: 18;
+    margin-top: 5;
+}
+.buttonsRow{
+    width: 100%;
+    margin-bottom: 30;
+        }
+.imageTaken{
+    width: 60%;
+    height: 60%;
+}
+.upLoad{
+    /*color: white;*/
+    height:50;
+    width: 45%;
+    font-size: 15;
+       border-width: 2;
+  border-color:teal;
+  border-radius: 30;
+  margin-right: 15;
+  margin-left: 10;
+
+}
+.takePicture{
+     /*color: white;*/
+    height:50;
+    width: 45%;
+    font-size: 15;
+       border-width: 2;
+  border-color:teal;
+  border-radius: 30;
+}
+.textFieldsRow{
+    margin-top: 30;
+    background-color: #f1f5f7;
+    padding: 20;
+    width: 80%;
+    margin-bottom: 25;
+}
+.remarksTest{
+     margin-bottom: 15;
+        border-width: 2;
+  border-color:teal;
+  border-radius: 10;
+  margin-top: 15;
+   font-size: 15;
+  padding: 15;
+   
+
+}
+.footer{
+    margin-top: 35;
+    /*margin-bottom: 25;*/
+}
+.leftIcon{
+    font-size: 20;
+    color: teal;
+    margin-left: 30;
+  
+    
+}
+.rightIcon{
+     font-size: 20;
+    color: teal;
+    
+    margin-left: 320;
+
+}
+.firstTap{
+    width:100%;
+    height: 100%;
+}
+.secondTap{
+    width: 60%;
+    height: 60%;
+}
+
+.loginfirstBg{
+    background-image: url("~/images/notaskbg.png");
+     background-repeat: no-repeat;
+background-size: 120% 100%;
+padding: 20;
+}
+.mainContent{
+   
+    width: 100%;
+   margin-bottom: 60;
+    
+}
+
+.contentLabel{
+       font-size: 20;
+     margin-top: -20;
+     font-family: roboto;     
+ }

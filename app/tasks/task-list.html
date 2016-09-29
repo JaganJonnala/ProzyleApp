@@ -1,0 +1,32 @@
+<stackLayout class="testBg">
+    <ActionBar title="Assigned Tasks">
+        <ActionItem (tap)="logout()" text="Logout"></ActionItem>
+    </ActionBar>
+    <StackLayout [visibility]="details.length != 0 ? 'visible' : 'collapsed'">
+        <StackLayout class="incWidth">
+        </StackLayout>
+        <ListView [items]="details" class="testList">
+            <template let-item="item" let-i="index">
+                <stackLayout orientation="horizontal" class="firstRow" (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)">
+                    <stackLayout orientation="vertical" class="leftContent">
+                        <Label [text]="item.id" class="numbering"></Label>
+                        <Label [text]="item.dueDate | dateConverter" class="date"></Label>
+                    </stackLayout>
+                    <!--<label [text]="item.taskTypeId | taskType" class="tasktype"></label>-->
+                    <Label [text]="item.taskStatusId | taskStatus" class="assignTask"></Label>
+                    <!--<Label text="&#xf054;" textWrap="true" class="test rightIcon" (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)"></Label>-->
+                    <Label text="&#xf054;" textWrap="true" class="test rightIcon" (tap)="gotoTask(item.id)"></Label>
+
+                </stackLayout>
+            </template>
+        </ListView>
+    </StackLayout>
+    <StackLayout class="loginfirstBg" [visibility]="details.length === 0 ? 'visible' : 'collapsed'">
+        <StackLayout class="mainContent">
+        </StackLayout>
+        <StackLayout class="">
+            <Image src="~/images/notasknew.png" class="taskImage"></Image>
+            <Label text="No Task Assigned at this moment" textWrap="true" horizontalAlignment="center" class="contentLabel"></Label>
+        </StackLayout>
+    </StackLayout>
+</stackLayout>
