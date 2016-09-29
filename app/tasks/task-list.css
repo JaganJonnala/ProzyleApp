@@ -5,9 +5,12 @@ background-size: 120% 100%;
 padding: 20;
 }
 ActionBar{
-    background-color: #302f2e;
+    background-color: #2F4F4F;
     color: white;
 }
 .example{
     font-family: "Font-Awesome";
+}
+.logout{
+    color:#fff;
 }

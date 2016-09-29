@@ -17,8 +17,8 @@ import {Page} from "ui/page";
   providers: [LoginService]
 })
 export class LoginViewModel {
-  // username: string = "jaganjvvn@gmail.com";
-  username: string = "devfa@dev.com";
+  username: string = "jaganjvvn@gmail.com";
+  // username: string = "devfa@dev.com";
   password: string = "Test@123";
   database: any;
   validationStatus: boolean = false;
@@ -31,13 +31,14 @@ export class LoginViewModel {
     private routerExtensions: TNSRouterExtensions) {
   }
   ngOnInit() {
-    this.page.actionBarHidden = true;
-    // let user: any = getString("user");
-    // if (user) {
-    //   this.applicationStateService.userId = user.userId;
-    //   this.global.loadNecessaryData();
-    //   return this.router.navigate(["/Task-List"]);
-    // }
+    console.log("Login Is Loaded");
+    // this.page.actionBarHidden = true;
+    // // let user: any = getString("user");
+    // // if (user) {
+    // //   this.applicationStateService.userId = user.userId;
+    // //   this.global.loadNecessaryData();
+    // //   return this.router.navigate(["/Task-List"]);
+    // // }
   }
   validate() {
     let errorMessge = '';
@@ -70,12 +71,13 @@ export class LoginViewModel {
         setString("token", result.access_token);
         setString("userId", result.Id);
         this.applicationStateService.userId = result.Id;
+        // this.router.navigate(["/Task-List"]);
         this.routerExtensions.navigate(["/Task-List"], {
           clearHistory: true,
           transition: {
-            name: "flip",
-            duration: 2000,
-            curve: "linear"
+            name: "curl",
+            duration: 380,
+            curve: "easeIn"
           }
         });
       },

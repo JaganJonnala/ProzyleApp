@@ -110,13 +110,12 @@ export class TaskViewModel {
             return result;
         }, []);
         this.items = mappedCategories[0].items;
-        console.log("items", JSON.stringify(this.items));
+        // console.log("items", JSON.stringify(this.items));
         this.items = this.items.concat(mappedCategories[1].items);
     }
     setItem() {
         this.item = this.items[this.currentIndex];
         this.checkListItemCount();
-        
     }
     back() {
         if (this.currentIndex === 0) {

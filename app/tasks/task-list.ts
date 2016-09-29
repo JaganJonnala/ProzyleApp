@@ -50,14 +50,13 @@ export class TaskListViewModel {
         // console.log(TaskStatus.InProgress);
         this.assignmentService.getAssignmentsByUserId(date, [TaskStatus.Assigned, TaskStatus.InProgress], +this.applicationStateService.userId).subscribe((assignments) => {
             this.details = assignments;
-            console.log("Length", this.details.length);
+            // console.log("Length", this.details.length);
 
         }),
             () => {
                 console.log("Failed to Get Assignments");
             };
         // this.details = this.global.getSavedTasks();
-        console.log("this.details are:::-----------------------:::", JSON.stringify(this.details));
     }
 
     gotoTask(assignmentId, approvalStatusId, taskTypeId, propertyTypeId, taskStatusId) {
@@ -65,21 +64,19 @@ export class TaskListViewModel {
         let pagedParams: PagedParams = new PagedParams(0, 0, [
             new Filter("assignmentId", assignmentId, DBOperation.equalTo, LogicalOperation.none, SortOperation.none),
         ]);
-        console.log("Paged Params ................", JSON.stringify(pagedParams));
 
         this.propertyAssetService.getPropertyAssets(pagedParams).subscribe((assets) => {
-            // console.log("here is Assets", JSON.stringify(assets));
             if (assets.length > 0) {
                 this.applicationStateService.approvalStatusId = approvalStatusId;
                 this.applicationStateService.assignmentId = assignmentId;
                 this.applicationStateService.assets = assets;
                 this.applicationStateService.propertyTypeId = propertyTypeId;
+                // this.router.navigate(["/Task"]);
                 this.routerExtensions.navigate(["/Task"], {
-                    clearHistory: true,
                     transition: {
-                        name: "flip",
-                        duration: 2000,
-                        curve: "linear"
+                        name: "curl",
+                        duration: 380,
+                        curve: "easeIn"
                     }
                 });
             }

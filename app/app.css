@@ -1,4 +1,8 @@
-﻿button, label, stack-layout {
+﻿*{
+    font-family: "Avenir Roman";
+}
+
+button, label, stack-layout {
     horizontal-align: center;    
 }
 

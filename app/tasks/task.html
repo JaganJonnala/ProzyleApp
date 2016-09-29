@@ -25,11 +25,10 @@
                 <Label text="Drop Down Selection Section Here"></Label>
             </StackLayout>
             <StackLayout class="textFieldsRow">
-                <TextView hint="Remarks" ([ngModel])="item?.remarks" editable="true" class="remarksTest"></TextView>
-                <TextView hint="Review" ([ngModel])="item?.reviewComments" editable="true" class="remarksTest"></TextView>
+                <TextField hint="Remarks" ([ngModel])="item?.remarks" class="remarksTest"></TextField>
+                <TextField hint="Review" ([ngModel])="item?.reviewComments" class="remarksTest"></TextField>
             </StackLayout>
         </StackLayout>
-
         <StackLayout class="footer" orientation="horizontal">
             <Label text="&#xf060;" (tap)="back()" textWrap="true" class="example leftIcon"></Label>
             <Label text="&#xf061;" (tap)="forward()" textWrap="true" class="example rightIcon"></Label>

@@ -1,13 +1,14 @@
-<ScrollView>
-    <stackLayout class="assigntaskNewbg">
-        <ActionBar title="TaskDetails">
-            <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
-            <ActionItem (tap)="logout()" text="Logout"></ActionItem>
-        </ActionBar>
-        <StackLayout [visibility]="details.length != 0 ? 'visible' : 'collapsed'">
-            <ListView [items]="details" class="testList">
-                <template let-item="item" let-i="index">
-                    <GridLayout rows="*,*,*,*,*,*, " columns="100,*,*,200,*" style="  background-color: rgb( 255, 255, 255 );  opacity: 0.502; color:black;   border-radius: 6; padding:10;"
+<stackLayout class="assigntaskNewbg">
+    <ActionBar title="TaskDetails">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+        <ActionItem (tap)="logout()" text="Logout" class="logout"></ActionItem>
+    </ActionBar>
+
+    <StackLayout [visibility]="details.length != 0 ? 'visible' : 'collapsed'">
+        <ListView [items]="details" class="testList">
+            <template let-item="item" let-i="index">
+                <ScrollView>
+                    <GridLayout rows="*,*,*,*,*,*," columns="100,*,*,200,*" style="  background-color:#fff; color:black;   border-radius: 6; padding:10;"
                         (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)">
                         <Label [text]="item.taskTypeId | taskType" textWrap="true" row="0" colSpan="2" verticalAlignment="center" style="font-size:17;"></Label>
                         <Label [text]="item.taskStatusId | taskStatus" textWrap="true" row="0" col="3" verticalAlignment="center" horizontalAlignment="center"
@@ -19,18 +20,20 @@
                         <Label [text]="'Property Id : '+item.propertyId" textWrap="true" row="2" colSpan="2" verticalAlignment="center"></Label>
                         <Label [text]="'Property Address : '+item.property.addressLine1+', '+item.property.addressLine2+', '+item.property.city+','+item.property.pincode "
                             textWrap="true" row="2" col="3" horizontalAlignment="center" verticalAlignment="center"></Label>
+                        <Button text="View" row="3" colspan="4" style="color:#fff;font-size:15;background-color:#2F4F4F;width:100%;" (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)"></Button>
                     </GridLayout>
-                </template>
-            </ListView>
+                </ScrollView>
+            </template>
+        </ListView>
+    </StackLayout>
+
+    <StackLayout class="loginfirstBg" [visibility]="details.length === 0 ? 'visible' : 'collapsed'">
+        <StackLayout class="mainContent">
         </StackLayout>
-        <StackLayout class="loginfirstBg" [visibility]="details.length === 0 ? 'visible' : 'collapsed'">
-            <StackLayout class="mainContent">
-            </StackLayout>
-            <StackLayout class="">
-                <Image src="~/images/notasknew.png" class="taskImage"></Image>
-                <Label text="No Tasks Assigned at this moment" style="font-size:18px;color:#fff;font-family:'Avenir Roman';" textWrap="true"
-                    horizontalAlignment="center" class="contentLabel"></Label>
-            </StackLayout>
+        <StackLayout class="">
+            <Image src="~/images/notasknew.png" class="taskImage"></Image>
+            <Label text="No Tasks Assigned at this moment" style="font-size:18px;color:#fff;font-family:'Avenir Roman';" textWrap="true"
+                horizontalAlignment="center" class="contentLabel"></Label>
         </StackLayout>
-    </stackLayout>
-</ScrollView>
+    </StackLayout>
+</stackLayout>
