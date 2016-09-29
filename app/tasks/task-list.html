@@ -1,32 +1,36 @@
-<stackLayout class="testBg">
-    <ActionBar title="Assigned Tasks">
-        <ActionItem (tap)="logout()" text="Logout"></ActionItem>
-    </ActionBar>
-    <StackLayout [visibility]="details.length != 0 ? 'visible' : 'collapsed'">
-        <StackLayout class="incWidth">
-        </StackLayout>
-        <ListView [items]="details" class="testList">
-            <template let-item="item" let-i="index">
-                <stackLayout orientation="horizontal" class="firstRow" (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)">
-                    <stackLayout orientation="vertical" class="leftContent">
-                        <Label [text]="item.id" class="numbering"></Label>
-                        <Label [text]="item.dueDate | dateConverter" class="date"></Label>
-                    </stackLayout>
-                    <!--<label [text]="item.taskTypeId | taskType" class="tasktype"></label>-->
-                    <Label [text]="item.taskStatusId | taskStatus" class="assignTask"></Label>
-                    <!--<Label text="&#xf054;" textWrap="true" class="test rightIcon" (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)"></Label>-->
-                    <Label text="&#xf054;" textWrap="true" class="test rightIcon" (tap)="gotoTask(item.id)"></Label>
+<ScrollView>
+    <stackLayout class="assigntaskNewbg">
+        <ActionBar title="TaskDetails">
+            <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+            <ActionItem (tap)="logout()" text="Logout"></ActionItem>
+        </ActionBar>
+        <StackLayout [visibility]="details.length != 0 ? 'visible' : 'collapsed'">
+            <ListView [items]="details" class="testList">
+                <template let-item="item" let-i="index">
+                    <GridLayout rows="*,*,*,*,*,*, " columns="100,*,*,200,*" style="  background-color: rgb( 255, 255, 255 );  opacity: 0.502; color:black;   border-radius: 6; padding:10;"
+                        (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)">
+                        <Label [text]="item.taskTypeId | taskType" textWrap="true" row="0" colSpan="2" verticalAlignment="center" style="font-size:17;"></Label>
+                        <Label [text]="item.taskStatusId | taskStatus" textWrap="true" row="0" col="3" verticalAlignment="center" horizontalAlignment="center"
+                            style="font-size:17;"></Label>
 
-                </stackLayout>
-            </template>
-        </ListView>
-    </StackLayout>
-    <StackLayout class="loginfirstBg" [visibility]="details.length === 0 ? 'visible' : 'collapsed'">
-        <StackLayout class="mainContent">
+                        <Label [text]="'Task Id : '+item.id" textWrap="true" row="1" colSpan="2" verticalAlignment="center"></Label>
+                        <Label [text]="'Due Date : '+(item.dueDate | dateConverter)" textWrap="true" row="1" col="3" verticalAlignment="center"></Label>
+                        <Label text="&#xf105;" row="1" col="4" verticalAlignment="center" class="example" style="font-size:33; margin-top:20;" (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)"></Label>
+                        <Label [text]="'Property Id : '+item.propertyId" textWrap="true" row="2" colSpan="2" verticalAlignment="center"></Label>
+                        <Label [text]="'Property Address : '+item.property.addressLine1+', '+item.property.addressLine2+', '+item.property.city+','+item.property.pincode "
+                            textWrap="true" row="2" col="3" horizontalAlignment="center" verticalAlignment="center"></Label>
+                    </GridLayout>
+                </template>
+            </ListView>
         </StackLayout>
-        <StackLayout class="">
-            <Image src="~/images/notasknew.png" class="taskImage"></Image>
-            <Label text="No Task Assigned at this moment" textWrap="true" horizontalAlignment="center" class="contentLabel"></Label>
+        <StackLayout class="loginfirstBg" [visibility]="details.length === 0 ? 'visible' : 'collapsed'">
+            <StackLayout class="mainContent">
+            </StackLayout>
+            <StackLayout class="">
+                <Image src="~/images/notasknew.png" class="taskImage"></Image>
+                <Label text="No Tasks Assigned at this moment" style="font-size:18px;color:#fff;font-family:'Avenir Roman';" textWrap="true"
+                    horizontalAlignment="center" class="contentLabel"></Label>
+            </StackLayout>
         </StackLayout>
-    </StackLayout>
-</stackLayout>
+    </stackLayout>
+</ScrollView>

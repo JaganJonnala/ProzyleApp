@@ -7,6 +7,7 @@ import { connectionType, getConnectionType } from "connectivity";
 import {CouchGlobal} from "./../common/global";
 import {CustomValidations} from "./../common/validations";
 var couchbaseModule = require("nativescript-couchbase");
+import {RouterExtensions as TNSRouterExtensions} from 'nativescript-angular/router/router-extensions';
 import {Page} from "ui/page";
 
 @Component({
@@ -16,7 +17,8 @@ import {Page} from "ui/page";
   providers: [LoginService]
 })
 export class LoginViewModel {
-  username: string = "jaganjvvn@gmail.com";
+  // username: string = "jaganjvvn@gmail.com";
+  username: string = "devfa@dev.com";
   password: string = "Test@123";
   database: any;
   validationStatus: boolean = false;
@@ -25,10 +27,11 @@ export class LoginViewModel {
   constructor(private page: Page, private router: Router,
     private loginService: LoginService,
     private applicationStateService: ApplicationStateService,
-    private global: CouchGlobal, private customValidations: CustomValidations) {
+    private global: CouchGlobal, private customValidations: CustomValidations,
+    private routerExtensions: TNSRouterExtensions) {
   }
   ngOnInit() {
-    this.page.actionBarHidden=true;
+    this.page.actionBarHidden = true;
     // let user: any = getString("user");
     // if (user) {
     //   this.applicationStateService.userId = user.userId;
@@ -58,7 +61,7 @@ export class LoginViewModel {
       alert("Prozyle requires an internet connection to log in.");
       return;
     }
-    
+
     if (this.validate()) {
       console.log("after validate calling");
       this.validationMessage = "";
@@ -67,9 +70,14 @@ export class LoginViewModel {
         setString("token", result.access_token);
         setString("userId", result.Id);
         this.applicationStateService.userId = result.Id;
-        // this.global.ngOnInit();
-        // this.global.loadGlobal(result);
-        this.router.navigate(["/Task-List"]);
+        this.routerExtensions.navigate(["/Task-List"], {
+          clearHistory: true,
+          transition: {
+            name: "flip",
+            duration: 2000,
+            curve: "linear"
+          }
+        });
       },
         () => alert("Unfortunately we were unable to find your account.")
       );

@@ -11,6 +11,7 @@ import {Filter, PagedParams} from '../models/paged-params';
 import {PropertyAsset, Assignment} from '../models';
 import {CouchGlobal} from "./../common/global";
 // import * as enums from './../common/enums';
+import {RouterExtensions as TNSRouterExtensions} from 'nativescript-angular/router/router-extensions';
 import { getString, setString, remove } from "application-settings";
 
 @Component({
@@ -24,11 +25,13 @@ import { getString, setString, remove } from "application-settings";
 })
 export class TaskListViewModel {
     details: Array<Assignment>;
-    countString:string;
+    countString: string;
     constructor(private router: Router,
         private assignmentService: AssignmentService,
         private propertyAssetService: PropertyAssetService,
-        private applicationStateService: ApplicationStateService, private global: CouchGlobal) {
+        private applicationStateService: ApplicationStateService,
+        private global: CouchGlobal,
+        private routerExtensions: TNSRouterExtensions) {
         // this.details = [
         //     { id: "11", date: "21-5-2016", status: "Assign" },
         //     { id: "24", date: "24-9-2016", status: "InProgress" },
@@ -47,6 +50,8 @@ export class TaskListViewModel {
         // console.log(TaskStatus.InProgress);
         this.assignmentService.getAssignmentsByUserId(date, [TaskStatus.Assigned, TaskStatus.InProgress], +this.applicationStateService.userId).subscribe((assignments) => {
             this.details = assignments;
+            console.log("Length", this.details.length);
+
         }),
             () => {
                 console.log("Failed to Get Assignments");
@@ -69,7 +74,14 @@ export class TaskListViewModel {
                 this.applicationStateService.assignmentId = assignmentId;
                 this.applicationStateService.assets = assets;
                 this.applicationStateService.propertyTypeId = propertyTypeId;
-                this.router.navigate(["/Task"])
+                this.routerExtensions.navigate(["/Task"], {
+                    clearHistory: true,
+                    transition: {
+                        name: "flip",
+                        duration: 2000,
+                        curve: "linear"
+                    }
+                });
             }
             else {
                 alert("No records found Something went wrong please contact with Support members");
@@ -88,7 +100,7 @@ export class TaskListViewModel {
     logout() {
         remove("userId");
         remove("token");
+        this.applicationStateService.userId = "0";
         this.router.navigate([""]);
     }
-    
 }

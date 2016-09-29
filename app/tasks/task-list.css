@@ -1,83 +1,13 @@
-ActionBar{
-    background-color: teal;
-    color: white;
-    
-}
-.tasktype{
-    text-align: center;
-    color: black;
-    font-size: 25;
-    margin-left: 30;
-}
-.testBg{
-     background-image: url("~/images/pic11.jpg");
+.assigntaskNewbg{
+     background-image: url("~/images/iPhone5.png");
      background-repeat: no-repeat;
- background-size: 120% 100%;
- padding: 20;
+background-size: 120% 100%;
+padding: 20;
 }
-.incWidth{
-    width: 100%;
-    /*height: 100%;*/
-}
-.main{
+ActionBar{
+    background-color: #302f2e;
     color: white;
 }
-.testList{
-    margin-bottom: 20;
-}
-.back{
-    font-size: 20;
-    color: white;
-    margin-bottom: 10;
-
-}
-.landImage{
-    font-size: 20;
-    color: white;
-    margin-bottom: 20;
-    
-    
-}
-.putImage{
-    width: 30%;
-    height: 10%;
-}
-
-.firstRow{
-    background-color: #f7fafb;
-    width: 100%;
-    /*padding: 10;*/
-    height: 20%;
-    font-size: 20;
-    border-radius: 5;
-    position: relative;
-    top: 20;
-    /*margin-bottom: 30;*/
-    /*margin-top: 30;*/
-    line-height: 20;
-}
-.leftContent{
-    width: 40%;
-    text-align: left;
-    margin-top: 10;
-    /*margin-left: -20;*/
-}
-.date{
-    color:black;
-    font-weight: bold;
-}
-.assignTask{
-    color: teal;
-    width: 40%;
-    margin-top: 5;
-    font-size: 20;
-    text-align: right;
-   margin-right:15;
-}
-
-.rightIcon{
-    color: #767676;
-    font-size: 25;
-    margin-top: 15;
-    margin-right: 8;
+.example{
+    font-family: "Font-Awesome";
 }
