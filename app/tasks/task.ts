@@ -4,6 +4,7 @@ import cameraModule = require("camera");
 import {PropertyService} from './../services';
 import {ApplicationStateService} from './../application-state-service';
 import {CheckList, CheckListCategory} from '../models/checklist';
+import {PropertyType} from './../common/enums';
 import { GestureEventData } from "ui/gestures";
 import dialogs = require("ui/dialogs");
 var fs = require("file-system");
@@ -21,8 +22,9 @@ export class TaskViewModel {
     secondTapStatus: boolean;
     checklists: Array<CheckListCategory> = [];
     items: Array<any> = [];
+    inspectionEntity: Array<string> = [];
     item: any;
-    countString: string="";
+    countString: string = "";
     currentIndex: number = 0;
     checkListType: Array<CheckList> = [];
     constructor(private page: Page, private propertyService: PropertyService,
@@ -34,11 +36,15 @@ export class TaskViewModel {
                 return checklist.propertyTypeId == this.applicationStateService.propertyTypeId;
             });
             this.customMapping();
+            this.inspectionEntity = this.applicationStateService.propertyTypeId === PropertyType.Land
+                ? ["Inspected", "Not Inspected", "Good", "Damaged", "Yes", "No"]
+                : ["Inspected", "Not Inspected", "Good", "Damaged"];
             this.setItem();
         });
     }
     customMapping() {
         let input = this.applicationStateService.assets;
+        // console.log("assets,", JSON.stringify(input));
         let mappedCategories = this.checkListType[0].categories.reduce((result, category) => {
             let inputIds = input.map(item => item.checkListitemId);
             let tempIds = category.items.map(item => item.id);
@@ -105,13 +111,21 @@ export class TaskViewModel {
                 result.push({
                     'categoryName': category.name,
                     'items': mappedItems
+                    // 'items': mappedItems.forEach(function (mappedItem) {
+                    //     mappedItem.checkListCategoryName = category.name;
+                    // })
                 });
             }
             return result;
         }, []);
-        this.items = mappedCategories[0].items;
-        // console.log("items", JSON.stringify(this.items));
-        this.items = this.items.concat(mappedCategories[1].items);
+
+        this.items = mappedCategories.reduce(function (result, checkList) {
+            result.push(...checkList.items);
+            return result;
+        }, []);
+        // console.log("Final Assets", JSON.stringify(this.items));
+        // this.items = mappedCategories[0].items;
+        // this.items = this.items.concat(mappedCategories[1].items);
     }
     setItem() {
         this.item = this.items[this.currentIndex];
