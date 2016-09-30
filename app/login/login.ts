@@ -45,31 +45,25 @@ export class LoginViewModel {
 
     if (this.username.length <= 0) {
       isValid = false;
-      var options = {
+      nstoasts.show({
         text: "Email ID Required",
-        duration: nstoasts.DURATION.SHORT
-      }
-      nstoasts.show(options);
+      });
     }
     else {
       if (!this.customValidations.isValidEmail(this.username)) {
         isValid = false;
-        var options = {
+        nstoasts.show({
           text: "Valid Email ID Required",
-          duration: nstoasts.DURATION.SHORT
-        }
-        nstoasts.show(options);
+        });
       }
     }
     return isValid;
   }
   signIn() {
     if (getConnectionType() === connectionType.none) {
-      var options = {
+      nstoasts.show({
         text: "No Internet Connection",
-        duration: nstoasts.DURATION.SHORT
-      }
-      nstoasts.show(options);
+      });
       return;
     }
 
