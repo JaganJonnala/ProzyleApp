@@ -100,6 +100,7 @@ export class TaskListViewModel {
         remove("token");
         this.applicationStateService.userId = "0";
         this.routerExtensions.navigate([""], {
+            clearHistory: true,
             animated: true,
             transition: {
                 name: "slide",
