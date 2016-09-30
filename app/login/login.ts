@@ -82,10 +82,13 @@ export class LoginViewModel {
             curve: "easeIn"
           }
         });
-      });
+      },
+        () => {
+          nstoasts.show({
+            text: "No Such Account",
+          });
+        });
     }
   }
 }
-
-
 
