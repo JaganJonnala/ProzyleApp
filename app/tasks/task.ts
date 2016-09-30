@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Page} from "ui/page";
+import {Router} from "@angular/router";
 import cameraModule = require("camera");
 import {PropertyService} from './../services';
 import {ApplicationStateService} from './../application-state-service';
@@ -27,7 +28,7 @@ export class TaskViewModel {
     countString: string = "";
     currentIndex: number = 0;
     checkListType: Array<CheckList> = [];
-    constructor(private page: Page, private propertyService: PropertyService,
+    constructor(private page: Page,private router:Router, private propertyService: PropertyService,
         private applicationStateService: ApplicationStateService) {
     }
     ngOnInit() {
@@ -190,5 +191,8 @@ export class TaskViewModel {
     checkListItemCount() {
         this.countString = `${this.currentIndex + 1} / ${this.items.length}`;
         console.log("checklistItemcount", this.countString);
+    }
+    navigate(){
+        this.router.navigate(["/Task-List"]);
     }
 }

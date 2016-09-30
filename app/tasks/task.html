@@ -1,7 +1,7 @@
 <ScrollView>
     <stackLayout class="">
         <ActionBar title="TaskDetails">
-            <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+            <NavigationButton text="Back" android.systemIcon="ic_menu_back" (tap)="navigate()"></NavigationButton>
             <ActionItem [text]="countString"></ActionItem>
         </ActionBar>
         <StackLayout class="increasbg">
