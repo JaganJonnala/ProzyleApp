@@ -9,6 +9,7 @@ import {CustomValidations} from "./../common/validations";
 var couchbaseModule = require("nativescript-couchbase");
 import {RouterExtensions as TNSRouterExtensions} from 'nativescript-angular/router/router-extensions';
 import {Page} from "ui/page";
+var nstoasts = require("nativescript-toasts");
 
 @Component({
   selector: "my-app",
@@ -41,37 +42,44 @@ export class LoginViewModel {
     // // }
   }
   validate() {
-    let errorMessge = '';
     let isValid = true;
+
     if (this.username.length <= 0) {
-      errorMessge = `${'email id is required'} `;
+      isValid = false;
+      var options = {
+        text: "Email ID Required",
+        duration: nstoasts.DURATION.SHORT
+      }
+      nstoasts.show(options);
     }
     else {
       if (!this.customValidations.isValidEmail(this.username)) {
-        errorMessge = `${'valid email id is required'} `;
+        isValid = false;
+        var options = {
+          text: "Valid Email ID Required",
+          duration: nstoasts.DURATION.SHORT
+        }
+        nstoasts.show(options);
       }
-    }
-    if (errorMessge.length > 0) {
-      isValid = false;
-      this.validationMessage = errorMessge;
     }
     return isValid;
   }
   signIn() {
     if (getConnectionType() === connectionType.none) {
-      alert("Prozyle requires an internet connection to log in.");
+      var options = {
+        text: "No Internet Connection",
+        duration: nstoasts.DURATION.SHORT
+      }
+      nstoasts.show(options);
       return;
     }
 
     if (this.validate()) {
       console.log("after validate calling");
-      this.validationMessage = "";
-      this.isLoading = true;
       this.loginService.login(this.username, this.password).subscribe((result: any) => {
         setString("token", result.access_token);
         setString("userId", result.Id);
         this.applicationStateService.userId = result.Id;
-        // this.router.navigate(["/Task-List"]);
         this.routerExtensions.navigate(["/Task-List"], {
           clearHistory: true,
           transition: {
@@ -80,9 +88,7 @@ export class LoginViewModel {
             curve: "easeIn"
           }
         });
-      },
-        () => alert("Unfortunately we were unable to find your account.")
-      );
+      });
     }
   }
 }
