@@ -73,9 +73,10 @@ export class TaskListViewModel {
                 this.applicationStateService.propertyTypeId = propertyTypeId;
                 // this.router.navigate(["/Task"]);
                 this.routerExtensions.navigate(["/Task"], {
+                    animated: true,
                     transition: {
-                        name: "curl",
-                        duration: 380,
+                        name: "slide",
+                        duration: 180,
                         curve: "easeIn"
                     }
                 });
@@ -98,6 +99,13 @@ export class TaskListViewModel {
         remove("userId");
         remove("token");
         this.applicationStateService.userId = "0";
-        this.router.navigate([""]);
+        this.routerExtensions.navigate([""], {
+            animated: true,
+            transition: {
+                name: "slide",
+                duration: 180,
+                curve: "easeIn"
+            }
+        });
     }
 }

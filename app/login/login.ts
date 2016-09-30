@@ -31,8 +31,7 @@ export class LoginViewModel {
     private routerExtensions: TNSRouterExtensions) {
   }
   ngOnInit() {
-    console.log("Login Is Loaded");
-    // this.page.actionBarHidden = true;
+    this.page.actionBarHidden = true;
     // // let user: any = getString("user");
     // // if (user) {
     // //   this.applicationStateService.userId = user.userId;
@@ -74,9 +73,10 @@ export class LoginViewModel {
         // this.router.navigate(["/Task-List"]);
         this.routerExtensions.navigate(["/Task-List"], {
           clearHistory: true,
+          animated: true,
           transition: {
-            name: "curl",
-            duration: 380,
+            name: "slide",
+            duration: 180,
             curve: "easeIn"
           }
         });
