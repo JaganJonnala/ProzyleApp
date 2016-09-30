@@ -1,13 +1,7 @@
 <ScrollView>
-
     <stackLayout class="iphone">
-        <!--<ActionBar title="TaskDetails">
-            <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
-        </ActionBar>-->
         <StackLayout class="incrWidth">
-
         </StackLayout>
-
         <GridLayout rows="*,*,*" columns="50, auto" style="background-color:black; opacity: 0.4;   border-radius: 10; width:300;">
             <Label text="&#xf003;" textWrap="true" class="example" row="0" col="0" horizontalAlignment="center" verticalAlignment="center"
                 style="font-size:30; color:#eacb20; padding-left:3;"></Label>
@@ -18,33 +12,11 @@
         <GridLayout rows="*,*" columns="50, auto" style="background-color:black; opacity: 0.502;   border-radius: 10; margin-top:25; width:300;">
             <Label text="&#xf13e;" textWrap="true" class="example" row="0" col="0" horizontalAlignment="center" verticalAlignment="center"
                 style="font-size:30; color:#eacb20; padding-left:3;"></Label>
-            <!--<Label text="Email" textWrap="true" class="example" row="0" col="1"></Label>-->
             <TextField hint="Password" [(ngModel)]="password" secure="true" row="0" col="1" horizontalAlignment="left" verticalAlignment="center"
                 style=" color:white;"></TextField>
         </GridLayout>
         <GridLayout rows="*" columns="*" style=" width:400;">
             <Button text="Sign In" class="button" row="0" col="0" verticalAlignment="center" (tap)="signIn()"></Button>
-
         </GridLayout>
-
-
     </stackLayout>
 </ScrollView>
-<!--<ScrollView>
-    <StackLayout class="loginfirstBg">
-        <StackLayout class="mainContent">
-        </StackLayout>
-        <StackLayout class="subContent">
-            <Border borderRadius="0.5" borderWidth="0.7" borderColor="#fc2e73" class="topBorder">
-            </Border>
-            <Image src="~/images/prozylelogo.png" horizontalAlignment="center" class="logoFirst"></Image>
-            <Image src="~/images/IconLogo.png" horizontalAlignment="center" class="logoFirst"></Image>
-            <Image src="~/images/prozyle.png" horizontalAlignment="center" class="logoFirst"></Image>
-            <StackLayout class="loinTextfields">
-                <TextField hint="Email" [(ngModel)]="username" class="inputText" [class.inputTextError]="!validationStatus"></TextField>
-                <TextField hint="Password" [(ngModel)]="password" class="emailNew" secure="true"></TextField>
-            </StackLayout>
-            <Button text="SIGN IN" class="signINbtn" (tap)="signIn()"></Button>
-        </StackLayout>
-    </StackLayout>
-</ScrollView>-->
