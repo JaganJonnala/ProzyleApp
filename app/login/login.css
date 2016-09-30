@@ -17,7 +17,9 @@ ActionBar{
   background-color: #eacb20;
   border-radius: 75;
   color: white;
-width: 55%;
+width: 40%;
+font-size: 20Px;
+font-weight: bold;
 margin-top: 30;
 }
 
