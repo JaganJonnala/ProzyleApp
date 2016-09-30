@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Page} from "ui/page";
 import {Router} from "@angular/router";
+import {RouterExtensions as TNSRouterExtensions} from 'nativescript-angular/router/router-extensions';
 import cameraModule = require("camera");
 import {PropertyService} from './../services';
 import {ApplicationStateService} from './../application-state-service';
@@ -29,7 +30,7 @@ export class TaskViewModel {
     currentIndex: number = 0;
     checkListType: Array<CheckList> = [];
     constructor(private page: Page,private router:Router, private propertyService: PropertyService,
-        private applicationStateService: ApplicationStateService) {
+        private applicationStateService: ApplicationStateService,private routerExtensions: TNSRouterExtensions) {
     }
     ngOnInit() {
         return this.propertyService.getCheckList().subscribe(checklists => {
@@ -193,6 +194,6 @@ export class TaskViewModel {
         console.log("checklistItemcount", this.countString);
     }
     navigate(){
-        this.router.navigate(["/Task-List"]);
+        this.routerExtensions.navigate(["/Task-List"]);
     }
 }
