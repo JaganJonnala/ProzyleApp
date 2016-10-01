@@ -51,7 +51,6 @@ export class TaskListViewModel {
         this.assignmentService.getAssignmentsByUserId(date, [TaskStatus.Assigned, TaskStatus.InProgress], +this.applicationStateService.userId).subscribe((assignments) => {
             this.details = assignments;
             // console.log("Length", this.details.length);
-
         }),
             () => {
                 console.log("Failed to Get Assignments");
