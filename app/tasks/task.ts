@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Page} from "ui/page";
+import {Router} from "@angular/router";
 import cameraModule = require("camera");
 import {PropertyService} from './../services';
 import {getString, setString} from 'application-settings';
@@ -239,5 +240,8 @@ export class TaskViewModel {
     checkListItemCount() {
         this.countString = `${this.currentIndex + 1} / ${this.items.length}`;
         console.log("checklistItemcount", this.countString);
+    }
+    navigate() {
+        this.routerExtensions.navigate(["/Task-List"]);
     }
 }

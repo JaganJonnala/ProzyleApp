@@ -2,18 +2,19 @@
     <stackLayout class="iphone">
         <StackLayout class="incrWidth">
         </StackLayout>
-        <GridLayout rows="*,*,*" columns="50, auto" style="background-color:black; opacity: 0.4;   border-radius: 10; width:300;">
+        
+        <GridLayout rows="*,*,*" columns="50, auto"  style="background-color:black; color:white; opacity: 0.4;   border-radius: 10; width:300;">
             <Label text="&#xf003;" textWrap="true" class="example" row="0" col="0" horizontalAlignment="center" verticalAlignment="center"
                 style="font-size:30; color:#eacb20; padding-left:3;"></Label>
             <TextField hint="E-mail address" [(ngModel)]="username" row="0" col="1" horizontalAlignment="left" verticalAlignment="center"
-                style="color:white;" ></TextField>
+               style=" placeholder-color:white;color:white;width:500;" ></TextField>
         </GridLayout>
         <!--<Label [text]="validationMessage"  row="1" col="0" style="margin-top:20; color:white;"></Label>-->
         <GridLayout rows="*,*" columns="50, auto" style="background-color:black; opacity: 0.502;   border-radius: 10; margin-top:25; width:300;">
             <Label text="&#xf13e;" textWrap="true" class="example" row="0" col="0" horizontalAlignment="center" verticalAlignment="center"
                 style="font-size:30; color:#eacb20; padding-left:3;"></Label>
             <TextField hint="Password" [(ngModel)]="password" secure="true" row="0" col="1" horizontalAlignment="left" verticalAlignment="center"
-                style=" color:white;"></TextField>
+                style=" placeholder-color:white;color:white;width:500;"></TextField>
         </GridLayout>
         <GridLayout rows="*" columns="*" style=" width:400;">
             <Button text="SIGN IN" class="button" row="0" col="0" verticalAlignment="center" (tap)="signIn()"></Button>

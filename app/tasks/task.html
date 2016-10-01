@@ -15,7 +15,7 @@
 <ScrollView>
     <stackLayout class="">
         <ActionBar title="TaskDetails">
-            <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+            <NavigationButton text="Back" android.systemIcon="ic_menu_back" (tap)="navigate()"></NavigationButton>
             <ActionItem [text]="countString"></ActionItem>
             <ActionItem text="SUBMIT" (tap)="save()"></ActionItem>
         </ActionBar>
@@ -38,8 +38,8 @@
             </StackLayout>
             <StackLayout [visibility]="item.dataEntryType ==='Dropdown' || item?.dataEntryType ==='CheckBox' ? 'visible' : 'collapsed'">
                 <GridLayout rows="auto, auto, *" columns="auto, *">
-                    <DropDown #dd backroundColor="red" [items]="inspectionEntity" [selectedIndex]="selectedIndex"
-                        (selectedIndexChange)="onchange(dd.selectedIndex)" row="0" col="3"></DropDown>
+                    <DropDown #dd backroundColor="red" [items]="inspectionEntity" [selectedIndex]="selectedIndex" (selectedIndexChange)="onchange(dd.selectedIndex)"
+                        row="0" col="3"></DropDown>
                 </GridLayout>
             </StackLayout>
             <StackLayout class="textFieldsRow">
