@@ -14,6 +14,8 @@ import {DateDateMonthYearValueConverter} from "./common/converters/date-pipe";
 import { NS_HTTP_PROVIDERS } from "nativescript-angular/http";
 import {CouchGlobal} from './common/global';
 import {LoginService, PropertyService, AssignmentService, PropertyAssetService} from './services';
+import {registerElement} from "nativescript-angular/element-registry";
+registerElement("DropDown", () => require("nativescript-drop-down/drop-down").DropDown);
 
 nativeScriptBootstrap(AppComponent, [CouchGlobal, HTTP_PROVIDERS, NS_HTTP_PROVIDERS,
     APP_ROUTER_PROVIDERS,

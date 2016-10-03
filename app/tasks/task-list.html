@@ -1,6 +1,6 @@
 <stackLayout class="assigntaskNewbg">
-    <ActionBar title="TaskDetails">
-        <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+    <ActionBar title="My Tasks" style="font-family:'Avenir Roman';">
+        <!--<NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>-->
         <ActionItem (tap)="logout()" text="Logout" class="logout"></ActionItem>
     </ActionBar>
 
@@ -8,18 +8,43 @@
         <ListView [items]="details" class="testList">
             <template let-item="item" let-i="index">
                 <ScrollView>
-                    <GridLayout rows="*,*,*,*,*,*," columns="100,*,*,200,*" style="  background-color:#fff; color:black;   border-radius: 6; padding:10;"
+                    <GridLayout rows="*,*,*,*,*,*," columns="100,*,*,200,*" style="  background-color:#fff; color:black;   border-radius: 6; padding:10; margin-bottom:20;"
                         (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)">
-                        <Label [text]="item.taskTypeId | taskType" textWrap="true" row="0" colSpan="2" verticalAlignment="center" style="font-size:17;"></Label>
+                        <Label [text]="item.taskTypeId | taskType" textWrap="true" row="0" colSpan="2" verticalAlignment="center" style="font-size:17; "></Label>
                         <Label [text]="item.taskStatusId | taskStatus" textWrap="true" row="0" col="3" verticalAlignment="center" horizontalAlignment="center"
                             style="font-size:17;"></Label>
 
-                        <Label [text]="'Task Id : '+item.id" textWrap="true" row="1" colSpan="2" verticalAlignment="center"></Label>
-                        <Label [text]="'Due Date : '+(item.dueDate | dateConverter)" textWrap="true" row="1" col="3" verticalAlignment="center"></Label>
+                        <!--<Label [text]="'Task Id : '+item.id" textWrap="true" row="1" colSpan="2" verticalAlignment="center" font-weight:bold;></Label>-->
+                        <Label row="1" colSpan="2" verticalAlignment="center" style="padding-top:10;">
+                                <FormattedString>
+                            <Span text="Task Id: " fontAttributes="Bold"></Span>
+                            <Span [text]="item.id"></Span>
+                            </FormattedString>
+                            </Label>
+                        <Label row="1" col="3" verticalAlignment="center" style="padding-top:10;">
+                        <FormattedString>
+                            <Span text="Due Date: " fontAttributes="Bold" ></Span>
+                            <Span [text]=" (item.dueDate | dateConverter)" ></Span>
+                        </FormattedString>
+                        </Label>
                         <!--<Label text="&#xf105;" row="1" col="4" verticalAlignment="center" class="example" style="font-size:33; margin-top:20;" (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)"></Label>-->
-                        <Label [text]="'Property Id : '+item.propertyId" textWrap="true" row="2" colSpan="2" verticalAlignment="center"></Label>
+                        <Label row="2" colspan="2" verticalAlignment="center" style="margin-top:20;">
+                            <FormattedString>
+                                <Span text="Property Id: " fontAttributes="Bold" ></Span>
+                                <Span [text]=" item.propertyId" ></Span>
+                            </FormattedString>
+                          </Label>
+                        <Label textWrap="true" row="2" col="3" horizontalAlignment="center" verticalAlignment="center" style="margin-top:20;margin-left:24;">
+                        <FormattedString>
+                            <Span text=" Property Address: " fontAttributes="Bold"  ></Span>
+                            <Span [text]="item.property.addressLine1+', '+item.property.addressLine2+', '+item.property.city+','+item.property.pincode " ></Span>
+                        </FormattedString>
+                            </Label>
+                        <!--<Label [text]="'Due Date : '+(item.dueDate | dateConverter)" textWrap="true" row="1" col="3" verticalAlignment="center" font-weight:bold;></Label>-->
+                        <!--<Label text="&#xf105;" row="1" col="4" verticalAlignment="center" class="example" style="font-size:33; margin-top:20;" (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)"></Label>-->
+                        <!--<Label [text]="'Property Id : '+item.propertyId" textWrap="true" row="2" colSpan="2" verticalAlignment="center"></Label>
                         <Label [text]="'Property Address : '+item.property.addressLine1+', '+item.property.addressLine2+', '+item.property.city+','+item.property.pincode "
-                            textWrap="true" row="2" col="3" horizontalAlignment="center" verticalAlignment="center"></Label>
+                            textWrap="true" row="2" col="3" verticalAlignment="center"></Label>-->
                         <Button text="View" row="3" colspan="4" style="color:#fff;font-size:15;background-color:#2F4F4F;width:100%;" (tap)="gotoTask(item.id,item.approvalStatusId,item.taskTypeId,item.property.propertyTypeId,item.taskStatusId)"></Button>
                     </GridLayout>
                 </ScrollView>

@@ -1,13 +1,19 @@
 import {Component, OnInit} from "@angular/core";
 import {Page} from "ui/page";
+import {Router} from "@angular/router";
 import cameraModule = require("camera");
 import {PropertyService} from './../services';
+import {getString, setString} from 'application-settings';
 import {ApplicationStateService} from './../application-state-service';
 import {CheckList, CheckListCategory} from '../models/checklist';
+import {RouterExtensions as TNSRouterExtensions} from 'nativescript-angular/router/router-extensions';
+import {PropertyType} from './../common/enums';
 import { GestureEventData } from "ui/gestures";
 import dialogs = require("ui/dialogs");
+var imagepicker = require("nativescript-imagepicker");
 var fs = require("file-system");
 var enums = require("ui/enums");
+var nstoasts = require("nativescript-toasts");
 
 @Component({
     selector: "list",
@@ -16,31 +22,55 @@ var enums = require("ui/enums");
     providers: [PropertyService]
 })
 export class TaskViewModel {
+    item: any;
+    items: Array<any> = [];
+    checkListType: Array<CheckList> = [];
+    inspectionEntity: Array<string> = [];
+    currentIndex: number = 0;
     localImagePath: string;
     imageTapStatus: boolean = false;
     secondTapStatus: boolean;
     checklists: Array<CheckListCategory> = [];
-    items: Array<any> = [];
-    item: any;
-    countString: string="";
-    currentIndex: number = 0;
-    checkListType: Array<CheckList> = [];
+    countString: string = "";
+    public counter: number = 16;
+    public binaryThumb: any;
+
     constructor(private page: Page, private propertyService: PropertyService,
-        private applicationStateService: ApplicationStateService) {
+        private applicationStateService: ApplicationStateService,
+        private routerExtensions: TNSRouterExtensions) {
+        this.item = {};
+        this.items = [];
     }
     ngOnInit() {
+        console.log("nogonit loaded");
         return this.propertyService.getCheckList().subscribe(checklists => {
             this.checkListType = checklists.filter((checklist) => {
                 return checklist.propertyTypeId == this.applicationStateService.propertyTypeId;
             });
-            this.customMapping();
-            this.setItem();
+            this.inspectionEntity = this.applicationStateService.propertyTypeId === PropertyType.Land
+                ? ["Inspected", "Not Inspected", "Good", "Damaged", "Yes", "No"]
+                : ["Inspected", "Not Inspected", "Good", "Damaged"];
+            this.items = this.getData();
+            this.item = this.items[this.currentIndex];
+            this.checkListItemCount();
         });
     }
-    customMapping() {
-        let input = this.applicationStateService.assets;
+    onchange(selectedi) {
+        console.log("selected index " + selectedi);
+        this.items[this.currentIndex].inspectedValue = this.inspectionEntity[selectedi];
+    }
+    changeRemarks() {
+        this.items = this.getData();
+        this.currentIndex = 0;
+        this.item = this.items[this.currentIndex];
+    }
+    getData() {
+        var rawData = this.applicationStateService.assets;
+        return this.mapToLocalData(rawData);
+    }
+    mapToLocalData(rawData: any) {
         let mappedCategories = this.checkListType[0].categories.reduce((result, category) => {
-            let inputIds = input.map(item => item.checkListitemId);
+            let inputIds = rawData.map(item => item.checkListitemId);
             let tempIds = category.items.map(item => item.id);
             let b = new Set(tempIds);
             let intersection = new Set(inputIds.filter(x => b.has(x)));
@@ -50,7 +80,7 @@ export class TaskViewModel {
             });
             if (resultIds && resultIds.length) {
                 let finalSubscriptions = resultIds.reduce(function (result, itemId) {
-                    let items = input.filter(function (inputItem) {
+                    let items = rawData.filter(function (inputItem) {
                         return inputItem.checkListitemId === itemId;
                     });
                     if (items.length) {
@@ -97,6 +127,7 @@ export class TaskViewModel {
                         'remarks': subscription.remarks,
                         'reviewComments': subscription.reviewComments,
                         'propertyImageUrl': subscription.propertyImageUrl,
+                        'localImagePath': subscription.propertyImageUrl,
                         'inspectedValue': subscription.inspectedValue,
                         'dataEntryType': lookupChecklistItem.dataEntryType,
                         // 'isBlock': isBlock
@@ -109,32 +140,46 @@ export class TaskViewModel {
             }
             return result;
         }, []);
-        this.items = mappedCategories[0].items;
-        // console.log("items", JSON.stringify(this.items));
-        this.items = this.items.concat(mappedCategories[1].items);
+
+        let results = mappedCategories.reduce(function (result, checkList) {
+            result.push(...checkList.items);
+            return result;
+        }, []);
+        return results;
     }
-    setItem() {
-        this.item = this.items[this.currentIndex];
-        this.checkListItemCount();
+    mapToServerData(cookedData) {
+        return cookedData;
     }
-    back() {
-        if (this.currentIndex === 0) {
+    save() {
+        let results = this.mapToServerData(this.items);
+        let subsmissionIndex = [];
+        this.items.forEach((element, index) => {
+            if (element.localImagePath === '' && element.inspectedValue === '') {
+                console.log("Item Index is", index);
+                subsmissionIndex.push(index);
+            }
+        });
+        console.log("Saved Items ", JSON.stringify(subsmissionIndex));
+        if (subsmissionIndex.length > 0) {
+            this.currentIndex = subsmissionIndex[0];
+            this.item = this.items[this.currentIndex];
+            this.checkListItemCount();
+            nstoasts.show({
+                text: "Please fill required data",
+            });
+        }
+        console.log("Saved Items ", JSON.stringify(results));
+    }
+    move(index) {
+        this.currentIndex = this.currentIndex + index;
+        if (this.currentIndex < 0) {
             this.currentIndex = this.items.length - 1;
         }
-        else {
-            this.currentIndex--;
-        }
-        this.setItem();
-    }
-    forward() {
-        if (this.currentIndex === this.items.length - 1) {
+        if (this.currentIndex === this.items.length) {
             this.currentIndex = 0;
-            this.setItem();
         }
-        else {
-            this.currentIndex++;
-        }
-        this.setItem();
+        this.item = this.items[this.currentIndex];
+        this.checkListItemCount();
     }
     onLongPress(args: GestureEventData) {
         console.log("LongPress!")
@@ -143,7 +188,7 @@ export class TaskViewModel {
         }).then(result => {
             console.log("result", result);
             if (result == "Remove") {
-                this.localImagePath = "";
+                this.items[this.currentIndex].localImagePath = '';
             }
         });
     }
@@ -171,10 +216,32 @@ export class TaskViewModel {
     displayPicture() {
         var folder = fs.knownFolders.documents();
         var path = fs.path.join(folder.path, "Test.png");
-        this.localImagePath = path;
+        this.items[this.currentIndex].localImagePath = path;
+    }
+    selectImages() {
+        var context = imagepicker.create({
+            mode: "single"
+        });
+        context
+            .authorize()
+            .then(function () {
+                return context.present();
+            })
+            .then((selection) => {
+                console.log("Selection done:");
+                selection.forEach(function (selected) {
+                    console.log(" - " + selected.uri);
+                });
+                this.items[this.currentIndex].localImagePath = selection[0].thumb;
+            }).catch(function (e) {
+                console.log(e);
+            });
     }
     checkListItemCount() {
         this.countString = `${this.currentIndex + 1} / ${this.items.length}`;
         console.log("checklistItemcount", this.countString);
+    }
+    navigate() {
+        this.routerExtensions.navigate(["/Task-List"]);
     }
 }

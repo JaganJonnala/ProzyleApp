@@ -33,12 +33,10 @@ export class LoginViewModel {
   }
   ngOnInit() {
     this.page.actionBarHidden = true;
-    // // let user: any = getString("user");
-    // // if (user) {
-    // //   this.applicationStateService.userId = user.userId;
-    // //   this.global.loadNecessaryData();
-    // //   return this.router.navigate(["/Task-List"]);
-    // // }
+    if (getString("token")) {
+      this.applicationStateService.userId = getString("userId");
+      this.router.navigate(["/Task-List"]);
+    }
   }
   validate() {
     let isValid = true;
@@ -68,7 +66,6 @@ export class LoginViewModel {
     }
 
     if (this.validate()) {
-      console.log("after validate calling");
       this.loginService.login(this.username, this.password).subscribe((result: any) => {
         setString("token", result.access_token);
         setString("userId", result.Id);
@@ -85,7 +82,7 @@ export class LoginViewModel {
       },
         () => {
           nstoasts.show({
-            text: "No Such Account",
+            text: "user doesn't exists",
           });
         });
     }
