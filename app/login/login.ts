@@ -75,7 +75,7 @@ export class LoginViewModel {
           animated: true,
           transition: {
             name: "slide",
-            duration: 1000,
+            duration: 500,
             curve: "easeIn"
           }
         });
