@@ -1,9 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AssignmentService, PropertyAssetService} from './../services';
-import {DateDateMonthYearValueConverter} from './../common/converters/date-pipe';
-import {TaskStatusPipe} from './../common/converters/task-status-pipe';
-import {TaskTypePipe} from './../common/converters/task-type-pipe';
+import {DateDateMonthYearValueConverter,TaskStatusPipe,TaskTypePipe} from './../common/converters';
 import * as moment from 'moment';
 import {TaskStatus, DBOperation, LogicalOperation, SortOperation, PairOperation} from './../common/enums';
 import {ApplicationStateService} from './../application-state-service';
